@@ -2,7 +2,7 @@ import { Column } from "typeorm";
 
 export class Email {
 
-    @Column({unique: true})
+    @Column({unique: true, name: 'email'})
     private email: string;
 
     constructor(email: string) {
@@ -10,7 +10,7 @@ export class Email {
         this.email = email;
     }
 
-    private isValidEmail = (email: string) => {
+    private isValidEmail(email: string): void {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if(!regex.test(email)) throw new Error('Email invalido');
     }
