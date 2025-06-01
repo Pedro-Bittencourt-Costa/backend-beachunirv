@@ -4,7 +4,7 @@ import { Column } from "typeorm";
 export class HashedPassword {
 
     @Column({ name: 'hashed_password' })
-    private hashedPassword: string;
+    private readonly hashedPassword: string;
 
     private constructor(hashedPassword: string) {
         this.hashedPassword = hashedPassword;

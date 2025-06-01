@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Email } from "../Email";
-import { HashedPassword } from "../HashedPassword";
-import { Role } from "../Roles";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Email } from "../value-objects/Email";
+import { HashedPassword } from "../value-objects/HashedPassword";
+import { Role } from "../enum/Roles";
+import { Loan } from "./Loan";
 
 @Entity('users')
 export class User {
@@ -30,5 +31,8 @@ export class User {
 
     @Column({default: true})
     status!: boolean;
+
+    @OneToMany(() => Loan, (loan) => loan.user)
+    loans!: Loan[]
     
 }
