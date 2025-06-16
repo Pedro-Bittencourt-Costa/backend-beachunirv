@@ -1,6 +1,7 @@
-import { DeleteResult, FindManyOptions, ObjectLiteral, Repository, UpdateResult } from "typeorm";
+import { DeleteResult, FindManyOptions, FindOneOptions, ObjectLiteral, Repository, UpdateResult } from "typeorm";
+import { RepositoryInterface } from "./RepositoryInterface";
 
-export abstract class RepositoryBase<T extends ObjectLiteral> {
+export abstract class RepositoryBase<T extends ObjectLiteral> implements RepositoryInterface<T>{
 
     protected readonly repository: Repository<T>;
 
@@ -8,14 +9,19 @@ export abstract class RepositoryBase<T extends ObjectLiteral> {
         this.repository = repository;
     }
 
-    public findAll(relations?: string[]): Promise<T[]> {
+    public findAll(relations: string[]): Promise<T[]> {
         const options: FindManyOptions<T> = {};
         options.relations = relations;
         return this.repository.find(options);
     }
 
-    public findById(id: number): Promise<T | null> {
-        return this.repository.findOne(id as any);
+    public findById(id: number, relations: string[]): Promise<T | null> {
+        const options: FindOneOptions<T> = {};
+        options.relations = relations;
+        return this.repository.findOne({
+            where: {id} as any,
+            ...options
+        });
     }
 
     public delete(id: number): Promise<DeleteResult>{
