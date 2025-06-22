@@ -24,6 +24,32 @@ export class CreateUserDto {
     role?: Role;
 }
 
+export class UpdateUserDto {
+    @IsOptional()
+    @IsString({ message: "Nome deve ser uma string" })
+    name?: string;
+
+    @IsOptional()
+    @IsEmail({}, { message: "Email deve ser válido" })
+    email?: string;
+
+    @IsOptional()
+    @IsString({ message: "Senha deve ser uma string" })
+    @MinLength(6, { message: "Senha deve ter pelo menos 6 caracteres" })
+    password?: string;
+
+    @IsOptional()
+    @IsString({ message: "URL da imagem de perfil deve ser uma string" })
+    profileImageUrl?: string;
+
+    @IsOptional()
+    @IsEnum(Role, { message: "Role deve ser ADM ou ATLETA" })
+    role?: Role;
+
+    @IsOptional()
+    status?: boolean;
+}
+
 export class ReturnUserDto {
     id!: number;
     name!: string;

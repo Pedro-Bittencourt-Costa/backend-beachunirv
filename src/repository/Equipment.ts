@@ -8,4 +8,12 @@ export class EquipmentRepository extends RepositoryBase<Equipment> {
         super(repository);
     }
 
+    findByName(name: string): Promise<Equipment | null> {
+        return this.repository.findOne({ where: { name } });
+    }
+
+    findByEsportId(esportId: number): Promise<Equipment[]> {
+        return this.repository.find({ where: { esports: { id: esportId } } });
+    }
+
 }
