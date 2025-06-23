@@ -4,8 +4,7 @@ import { EquipmentRepository } from "../repository/Equipment";
 import { 
     CreateEquipmentDto, 
     ReturnEquipmentDto, 
-    UpdateEquipmentDto,
-    ApiResponseDto 
+    UpdateEquipmentDto 
 } from "../model/dtos";
 import { EsportRepository } from "../repository/EsportRepository";
 
@@ -221,39 +220,4 @@ export class EquipmentService implements CrudServiceInterface<Equipment, ReturnE
         };
     }
 
-    // Método para criar resposta de API padronizada
-    async createEquipmentResponse(createEquipmentDto: CreateEquipmentDto): Promise<ApiResponseDto<ReturnEquipmentDto>> {
-        try {
-            const equipment = await this.create(createEquipmentDto);
-            return {
-                success: true,
-                message: "Equipamento criado com sucesso",
-                data: equipment
-            };
-        } catch (error) {
-            return {
-                success: false,
-                message: "Erro ao criar equipamento",
-                error: error instanceof Error ? error.message : "Erro desconhecido"
-            };
-        }
-    }
-
-    async updateEquipmentResponse(id: number, updateEquipmentDto: UpdateEquipmentDto): Promise<ApiResponseDto<ReturnEquipmentDto>> {
-        try {
-            await this.update(id, updateEquipmentDto);
-            const updatedEquipment = await this.findById(id);
-            return {
-                success: true,
-                message: "Equipamento atualizado com sucesso",
-                data: updatedEquipment
-            };
-        } catch (error) {
-            return {
-                success: false,
-                message: "Erro ao atualizar equipamento",
-                error: error instanceof Error ? error.message : "Erro desconhecido"
-            };
-        }
-    }
 }

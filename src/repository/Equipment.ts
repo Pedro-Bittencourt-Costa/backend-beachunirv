@@ -1,11 +1,15 @@
 import { Repository } from "typeorm";
 import { RepositoryBase } from "./RepositoryBase";
 import { Equipment } from "../model/entities/Equipment";
+import { AppDataSource } from "../data_source";
 
 export class EquipmentRepository extends RepositoryBase<Equipment> {
     
-    constructor(readonly repository: Repository<Equipment> ){
-        super(repository);
+    public readonly repository: Repository<Equipment>;
+
+    constructor(){
+        super(AppDataSource.getRepository(Equipment));
+        this.repository = AppDataSource.getRepository(Equipment);
     }
 
     findByName(name: string): Promise<Equipment | null> {

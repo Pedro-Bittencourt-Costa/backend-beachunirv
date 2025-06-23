@@ -30,7 +30,8 @@ export function validateDto(dtoClass: any) {
 
     if (errors.length > 0) {
       const messages = extractErrorMessages(errors);
-      return res.status(400).json({ errors: messages });
+      res.status(400).json({ errors: messages });
+      return;
     }
 
     next();

@@ -4,8 +4,7 @@ import { UserRepository } from "../repository/UserRepository";
 import { 
     CreateUserDto, 
     ReturnUserDto, 
-    UpdateUserDto,
-    ApiResponseDto 
+    UpdateUserDto
 } from "../model/dtos";
 import { Email } from "../model/value-objects/Email";
 import { HashedPassword } from "../model/value-objects/HashedPassword";
@@ -196,39 +195,4 @@ export class UserService implements CrudServiceInterface<User, ReturnUserDto, Cr
         };
     }
 
-    // Método para criar resposta de API padronizada
-    async createUserResponse(createUserDto: CreateUserDto): Promise<ApiResponseDto<ReturnUserDto>> {
-        try {
-            const user = await this.create(createUserDto);
-            return {
-                success: true,
-                message: "Usuário criado com sucesso",
-                data: user
-            };
-        } catch (error) {
-            return {
-                success: false,
-                message: "Erro ao criar usuário",
-                error: error instanceof Error ? error.message : "Erro desconhecido"
-            };
-        }
-    }
-
-    async updateUserResponse(id: number, updateUserDto: UpdateUserDto): Promise<ApiResponseDto<ReturnUserDto>> {
-        try {
-            await this.update(id, updateUserDto);
-            const updatedUser = await this.findById(id);
-            return {
-                success: true,
-                message: "Usuário atualizado com sucesso",
-                data: updatedUser
-            };
-        } catch (error) {
-            return {
-                success: false,
-                message: "Erro ao atualizar usuário",
-                error: error instanceof Error ? error.message : "Erro desconhecido"
-            };
-        }
-    }
 }
