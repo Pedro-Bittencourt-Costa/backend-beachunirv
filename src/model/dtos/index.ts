@@ -13,5 +13,3 @@ export * from './LoanDto';
 // Auth DTOs
 export * from './AuthDto';
 
-// Pagination DTOs
-export * from './PaginationDto'; 
