@@ -1,8 +1,8 @@
 import { Request } from "express";
-import { User } from "../model/entities/user";
+import { ReturnUserDto } from "../model/dtos";
 
 export interface IPayload {
-    usuario: User;
+    usuario: ReturnUserDto;
 }
 
 export interface RequestWithPayload extends Request {

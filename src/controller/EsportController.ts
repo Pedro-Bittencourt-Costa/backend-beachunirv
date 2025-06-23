@@ -11,47 +11,25 @@ export class EsportController extends CrudController<Esport, ReturnEsportDto, Cr
     }
 
     async findByName(req: Request, res: Response): Promise<void> {
-        try {
-            const { name } = req.params;
-            const esport = await this.esportService.findByName(name);
-            
-            if (!esport) {
-                res.status(404).json({ message: 'Esporte não encontrado' });
-                return;
-            }
-            
-            res.status(200).json(esport);
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao buscar esporte' });
-        }
+        const { name } = req.params;
+        const esport = await this.esportService.findByName(name);        
+        res.status(200).json(esport);
     }
 
     async create(req: Request, res: Response): Promise<void> {
-        try {
-            const esport = await this.esportService.create(req.body);
-            res.status(201).json(esport);
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao criar esporte' });
-        }
+        const esport = await this.esportService.create(req.body);
+        res.status(201).json(esport);
     }
 
     async update(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            await this.esportService.update(id, req.body);
-            res.status(204).send();
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao atualizar esporte' });
-        }
+        const id = Number(req.params.id);
+        await this.esportService.update(id, req.body);
+        res.status(204).send();
     }
 
     async delete(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            await this.esportService.delete(id);
-            res.status(204).send();
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao excluir esporte' });
-        }
+        const id = Number(req.params.id);
+        await this.esportService.delete(id);
+        res.status(204).send();
     }
 } 

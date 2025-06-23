@@ -12,67 +12,43 @@ export class LoanController extends CrudController<Loan, ReturnLoanDto, CreateLo
     }
 
     async findLoansByUser(req: Request, res: Response): Promise<void> {
-        try {
-            const { userId } = req.params;
-            const loans = await this.loanService.findLoansByUser(Number(userId));
-            res.status(200).json(loans);
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao buscar empréstimos do usuário' });
-        }
+        const { userId } = req.params;
+        const loans = await this.loanService.findLoansByUser(Number(userId));
+        res.status(200).json(loans);
     }
 
     async findLoansByEquipment(req: Request, res: Response): Promise<void> {
-        try {
-            const { equipmentId } = req.params;
-            const loans = await this.loanService.findLoansByEquipment(Number(equipmentId));
-            res.status(200).json(loans);
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao buscar empréstimos do equipamento' });
-        }
+        const { equipmentId } = req.params;
+        const loans = await this.loanService.findLoansByEquipment(Number(equipmentId));
+        res.status(200).json(loans);
     }
 
     async findLoansByStatus(req: Request, res: Response): Promise<void> {
-        try {
-            const { status } = req.params;
-            
-            if (!Object.values(LoanStatus).includes(status as LoanStatus)) {
-                res.status(400).json({ message: 'Status inválido' });
-                return;
-            }
-            
-            const loans = await this.loanService.findLoansByStatus(status as LoanStatus);
-            res.status(200).json(loans);
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao buscar empréstimos por status' });
+        const { status } = req.params;
+        
+        if (!Object.values(LoanStatus).includes(status as LoanStatus)) {
+            res.status(400).json({ message: 'Status inválido' });
+            return;
         }
+        
+        const loans = await this.loanService.findLoansByStatus(status as LoanStatus);
+        res.status(200).json(loans);
     }
 
     async create(req: Request, res: Response): Promise<void> {
-        try {
-            const loan = await this.loanService.create(req.body);
-            res.status(201).json(loan);
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao criar empréstimo' });
-        }
+        const loan = await this.loanService.create(req.body);
+        res.status(201).json(loan);
     }
 
     async update(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            await this.loanService.update(id, req.body);
-            res.status(204).send();
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao atualizar empréstimo' });
-        }
+        const id = Number(req.params.id);
+        await this.loanService.update(id, req.body);
+        res.status(204).send();
     }
 
     async delete(req: Request, res: Response): Promise<void> {
-        try {
-            const id = Number(req.params.id);
-            await this.loanService.delete(id);
-            res.status(204).send();
-        } catch (error) {
-            res.status(400).json({ message: error instanceof Error ? error.message : 'Erro ao excluir empréstimo' });
-        }
+        const id = Number(req.params.id);
+        await this.loanService.delete(id);
+        res.status(204).send();
     }
 } 

@@ -5,11 +5,11 @@ export class CrudController<T, createDto = T, updateDto = T, responseDto = T> {
     constructor(private service: CrudServiceInterface<T, createDto, updateDto, responseDto>
     ) {}
 
-    async findAll(req: Request, res: Response): Promise<Response> {
+    async findAll(req: Request, res: Response): Promise<void> {
 
         const relationsArray = this.findRelations(req);
         const items = await this.service.findAll(relationsArray);
-        return res.status(200).json(items);
+        res.status(200).json(items);
     }
 
     async findById(req: Request, res: Response): Promise<void> {

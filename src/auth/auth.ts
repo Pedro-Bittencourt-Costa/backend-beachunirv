@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';
 import { IPayload } from './payload';
+import { ReturnUserDto } from '../model/dtos';
 
 
 export const createToken = (payload: IPayload): string => {

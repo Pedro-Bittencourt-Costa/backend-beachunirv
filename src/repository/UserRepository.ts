@@ -12,7 +12,11 @@ export class UserRepository extends RepositoryBase<User> {
     }
 
     findByEmail(email: string): Promise<User | null> {
-        return this.repository.findOne({ where: { email: { email: email } } as any });
+        return this.repository.findOne({ 
+            where: { 
+                email: { email: email } 
+            } as any 
+        });
     }
 
     findByRole(role: Role): Promise<User[]> {

@@ -1,5 +1,6 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
 import { Role } from "../enum/Roles";
+import { User } from "../entities/user";
 
 export class CreateUserDto {
     @IsNotEmpty({ message: "Nome é obrigatório" })
@@ -59,4 +60,15 @@ export class ReturnUserDto {
     status!: boolean;
     createdAt?: Date;
     updatedAt?: Date;
+
+    constructor(user?: User) {
+        if(user) {
+            this.id = user.id;
+            this.name = user.name;
+            this.email = user.email.getEmail();
+            this.profileImageUrl = user.profileImageUrl;
+            this.role = user.role;
+            this.status = user.status;
+        }
+    }
 } 
